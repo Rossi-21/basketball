@@ -1,0 +1,13 @@
+.icon {
+    width: 35px;
+    height: 5px;
+    background-color: #d62828;
+    margin: 6px;
+}
+.grade {
+    background: rgb(0,48,73);
+    background: linear-gradient(90deg, rgba(0,48,73,1) 0%, rgba(247,127,0,1) 35%, rgba(234,226,183,1) 100%);
+}
+.txt{
+    color: #d62828;
+}
