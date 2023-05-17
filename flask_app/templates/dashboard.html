@@ -27,6 +27,28 @@
         <div class="container-fluid border">
             <h1>Hello!</h1>
         </div>
+        <form action="/post/create/submit" method="post" class="new-tree-form">
+            <h2 class="form-header">Tell us something!</h2>
+            <div class="flash_message">
+                {% with messages = get_flashed_messages() %}    
+                {% if messages %}                            
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                   
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="form-group">
+                <label for="content">Thoughts:</label>
+                <textarea id="content" name="content" rows="3" cols="30" placeholder="Let us know your thoughts on this!"></textarea>
+            </div>
+            <input type="submit" value="Add Post" class="btn btn-success">
+        </form>
+    </div>
+    {%for post in posts%}
+        {{post.creator.first_name}} {{post.creator.last_name}}
+        {{post.content}}
+    {% endfor %}
     </div>   
 </body>
 </html>

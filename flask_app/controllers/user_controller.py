@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
-from flask_app.models import user # import class from flask_app.modles
+from flask_app.models import user, post # import class from flask_app.modles
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -31,17 +31,11 @@ def login():
     if this_user:
         if bcrypt.check_password_hash(this_user.password,request.form['password']):
             session['user_id'] = this_user.id
-            return redirect('/dashboard') #change this route to your landing page
+            return redirect('/dashboard')
     flash("Invalid Credentials", "logError")
     return redirect('/')
 
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect('/')
-
-@app.route('/dashboard') #change this route to your landing page
-def success():
-    if 'user_id' in session:
-        return render_template("dashboard.html")
     return redirect('/')
