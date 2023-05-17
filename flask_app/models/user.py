@@ -4,7 +4,7 @@ import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 #from flask_app.models import #import other models
 
-db = 'schema_name'
+db = 'sports_schema'
 
 class User:
     def __init__(self, data):
