@@ -11,17 +11,16 @@ def homepage():
     user = User.get_one({"id":session['user_id']})
     if not user:
         return redirect('/logout')
-        
     return render_template('dashboard.html', user=user, posts=Post.get_all_posts())
 
 @app.route('/posts/create')
 def create_post():
     if 'user_id' not in session:
         return redirect('/')
-    user = User.get_id({"id":session['user_id']})
+    user = User.get_one({"id":session['user_id']})
     if not user:
         return redirect('/logout')
-    return redirect('/dashboard')
+    return render_template('new_post.html', user=user, posts=Post.get_all_posts())
 
 @app.route('/post/create/submit', methods =['POST'])
 def submit_post():

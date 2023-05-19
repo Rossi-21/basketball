@@ -13,14 +13,14 @@
     <div class="container-fluid">
         <nav class="grade p-2 mb-3 d-flex align-items-center justify-content-between fixed-top">
             <a href="#" class="fs-1 fw-bold text-decoration-none txt" style="width:85%;">InstaBall</a>
-            <p class="mt-3 fw-bold txt">Name</p>
+            <p class="mt-3 fw-bold txt">Welcome, {{user.first_name}}</p>
             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
             </button>
             <ul class="dropdown-menu grade">
-                <li><a class="dropdown-item fw-bold" href="#">Post</a></li>
+                <li><a class="dropdown-item fw-bold" href="/dashboard">Dashboard</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
             </ul>
