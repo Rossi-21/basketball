@@ -11,6 +11,8 @@ class Comment:
         self.post_id = data['post_id']
         self.user = None
 
+    
+
 
     @classmethod
     def get_comments_by_post_id(cls, post_id):
@@ -22,7 +24,7 @@ class Comment:
         """
 
         data = {"post_id": post_id}
-        results = connectToMySQL('whats_the_issue').query_db(query, data)
+        results = connectToMySQL('sports_schema').query_db(query, data)
         comments = []
 
         for result in results:
