@@ -56,7 +56,7 @@ def submit_edit_post(post_id):
         'user_id': session['user_id'],
         'content': request.form['content']
     }
-<<<<<<< HEAD
+
     Post.save_post(data)
     return redirect('/dashboard')
 
@@ -75,9 +75,3 @@ def user_posts(id):
         post.comments = Comment.get_comments_by_post_id(post.id)
 
     return render_template("show_user.html", user=user, posts=posts)
-=======
-    if not Post.validate_new_post(data):
-        return redirect(f'/posts/edit/{post_id}')
-    Post.update_post(data)
-    return redirect('/dashboard')
->>>>>>> a2a416d19aa8d55efae400d1032abc4c95209ae8
