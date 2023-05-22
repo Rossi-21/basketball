@@ -20,15 +20,9 @@
                 <div class="icon rounded"></div>
             </button>
             <ul class="dropdown-menu grade">
-<<<<<<< HEAD
                 <li><a class="dropdown-item fw-bold" href="#">Post</a></li>
                 <li><a class="dropdown-item fw-bold" href="/profile/{{user.id}}">Profile</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
-=======
-                <li><a class="dropdown-item fw-bold" href="/posts/create">Post</a></li>
-                <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
-                <li><a class="dropdown-item fw-bold" href="/">Logout</a></li>
->>>>>>> a2a416d19aa8d55efae400d1032abc4c95209ae8
             </ul>
         </nav>
         <div class="container-fluid bgLightYellow" style="height: 1500px; width:inherit; padding-top: 10%;">
@@ -39,10 +33,12 @@
                         {{post.creator.first_name}} {{post.creator.last_name}}
                         {{post.content}}
                         <a href="/posts/edit/{{ post.id }}">Edit</a>
+                        <a href="/show/post/{{post.id}}">View</a>
                     {% endfor %}
+
                 </div>
                 <form action="/post/create/submit" method="post" class="post-form">
-                    <h2 class="form-header">Tell us what you're reading!</h2>
+                    <h2 class="form-header">Tell us about your team!</h2>
                     <div class="form-group">
                         <label for="content">Thoughts:</label>
                         <textarea id="content" name="content" rows="3" cols="30" placeholder="Let us know your thoughts!"></textarea>

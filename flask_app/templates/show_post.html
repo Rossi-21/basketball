@@ -30,12 +30,12 @@
                 <div class="mx-auto mt-5 p-3 border rounded myShadow2" style="width: 50%;">
                     <h2 class="mb-3 txt2"> Post:</h2>
                     <div class="txt">
-                        <p>Username:</p>
-                        <p class="txt2">Post Content</p>
+
+                            <p>Username: {{post.creator.first_name}} {{post.creator.last_name}}</p>
+                            <p class="txt2">{{post.content}}</p>
                     </div>
-                    <p class="border-bottom txt2">Comments...</p>
-                    <p class="txt">Username: <span class="txt2">Blah blah blah...</span></p>
-                    
+                        <p class="border-bottom txt2">Comments...</p>
+                        <p class="txt">Username: <span class="txt2">Blah blah blah...</span></p>
                 </div> 
             </div>
         </div>  
