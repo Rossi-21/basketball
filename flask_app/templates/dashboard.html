@@ -12,39 +12,32 @@
 <body>
     <div class="container-fluid">
         <nav class="grade p-2 mb-3 d-flex align-items-center justify-content-between fixed-top">
-            <a href="#" class="fs-1 fw-bold text-decoration-none txt" style="width:85%;">InstaBall</a>
-            <p class="fs-5 mt-3 fw-bold txt">Welcome, {{user.first_name}}</p>
+            <a href="/dashboard" class="fs-1 fw-bold text-decoration-none txt" style="width:85%;">InstaBall</a>
+            <p class="fs-5 mt-3 fw-bold txt">{{user.first_name}}</p>
             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
             </button>
             <ul class="dropdown-menu grade">
-                <li><a class="dropdown-item fw-bold" href="#">Post</a></li>
+                <li><a class="dropdown-item fw-bold" href="/posts/create">Post</a></li>
                 <li><a class="dropdown-item fw-bold" href="/profile/{{user.id}}">Profile</a></li>
-                <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
+                <li><a class="dropdown-item fw-bold" href="/logout">Logout</a></li>
             </ul>
         </nav>
-        <div class="container-fluid bgLightYellow" style="height: 1500px; width:inherit; padding-top: 10%;">
+        <div class="container-fluid bgBlue" style="height: 1500px; width:inherit; padding-top: 10%;">
             <div class="container-fluid" style="width:100%;">
-                <div class="mx-auto mt-5 p-3 border rounded myShadow2" style="width: 50%;">
-                    <p class="txt">All Post from all users displayed here.</p>
+                
                     {%for post in posts%}
-                        {{post.creator.first_name}} {{post.creator.last_name}}
-                        {{post.content}}
+                    <div class="mx-auto mt-5 p-3 border rounded myShadow2" style="width: 50%;">
+                        <p class="txt">
+                            {{post.creator.first_name}} {{post.creator.last_name}}:
+                            <span class="txt2">{{post.content}}</span> 
+                        </p>    
                         <a href="/posts/edit/{{ post.id }}">Edit</a>
                         <a href="/show/post/{{post.id}}">View</a>
-                    {% endfor %}
-
-                </div>
-                <form action="/post/create/submit" method="post" class="post-form">
-                    <h2 class="form-header">Tell us about your team!</h2>
-                    <div class="form-group">
-                        <label for="content">Thoughts:</label>
-                        <textarea id="content" name="content" rows="3" cols="30" placeholder="Let us know your thoughts!"></textarea>
                     </div>
-                    <input type="submit" value="Add Post" class="btn btn-success">
-                </form>
+                    {% endfor %}
             </div>
         </div>
     </div>   
