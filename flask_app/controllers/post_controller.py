@@ -1,8 +1,12 @@
-from flask import render_template, request, flash, redirect, session
+import os
+from flask import render_template, request, flash, redirect, session, url_for, send_from_directory
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.post import Post
 from flask_app.models.comment import Comment
+from werkzeug.utils import secure_filename
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpeg', 'gif'} 
 
 @app.route('/dashboard')
 def homepage():
@@ -22,10 +26,24 @@ def create_post():
         return redirect('/logout')
     return render_template('new_post.html', user=user, posts=Post.get_all_posts())
 
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/post/create/submit', methods = ['POST'])
 def submit_post():
     if 'user_id' not in session:
         return redirect('/')
+    
+    #file = request.files['file']
+    #if file.filename == '':
+           # flash('No selected file')
+           # return redirect(request.url)
+    #if file and allowed_file(file.filename):
+        #filename = secure_filename(file.filename)
+        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #return redirect('/dashboard')
+    
     data = {
         'user_id': session['user_id'],
         'content': request.form['content']
@@ -34,6 +52,10 @@ def submit_post():
         return redirect('/posts/create')
     Post.save_post(data)
     return redirect('/dashboard')
+
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
 @app.route('/posts/edit/<int:post_id>')
 def edit_post(post_id):
