@@ -37,8 +37,8 @@ def submit_post():
     
     #file = request.files['file']
     #if file.filename == '':
-           # flash('No selected file')
-           # return redirect(request.url)
+        # flash('No selected file')
+        # return redirect(request.url)
     #if file and allowed_file(file.filename):
         #filename = secure_filename(file.filename)
         #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -79,7 +79,7 @@ def submit_edit_post(post_id):
         'content': request.form['content']
     }
 
-    Post.save_post(data)
+    Post.update_post(data)
     return redirect('/dashboard')
 
 @app.route('/profile/<int:id>')
@@ -114,3 +114,11 @@ def show_post(id):
     post = Post.get_one_post(data)
 
     return render_template("show_post.html", user=user, post=post)
+
+@app.route('/delete/post/<int:post_id>')
+def destroy(post_id):
+    data ={
+        'id': post_id
+    }
+    Post.delete_post(data)
+    return redirect('/dashboard')

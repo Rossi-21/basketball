@@ -148,7 +148,12 @@ class Post:
         query = "UPDATE posts SET content=%(content)s, updated_at=NOW() WHERE id = %(id)s;"
         result = connectToMySQL('sports_schema').query_db(query,data)
         return result
-
+    
+    @classmethod
+    def delete_post(cls,data):
+        query  = "DELETE FROM posts WHERE id = %(id)s;"
+        result = connectToMySQL('sports_schema').query_db(query,data)
+        return result
 
     @staticmethod
     def validate_new_post(data):
