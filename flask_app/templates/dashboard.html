@@ -33,8 +33,10 @@
                         <p class="txt">
                             {{post.creator.first_name}} {{post.creator.last_name}}:
                             <span class="txt2">{{post.content}}</span> 
-                        </p>    
+                        </p>
+                        {% if session['user_id'] == post.creator.id%}    
                         <a href="/posts/edit/{{ post.id }}">Edit</a>
+                        {%endif%}
                         <a href="/show/post/{{post.id}}">View</a>
                     </div>
                     {% endfor %}
