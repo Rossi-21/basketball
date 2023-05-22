@@ -13,16 +13,22 @@
     <div class="container-fluid">
         <nav class="grade p-2 mb-3 d-flex align-items-center justify-content-between fixed-top">
             <a href="#" class="fs-1 fw-bold text-decoration-none txt" style="width:85%;">InstaBall</a>
-            <p class="fs-5 mt-3 fw-bold txt">User Name</p>
+            <p class="fs-5 mt-3 fw-bold txt">Welcome, {{user.first_name}}</p>
             <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
                 <div class="icon rounded"></div>
             </button>
             <ul class="dropdown-menu grade">
+<<<<<<< HEAD
                 <li><a class="dropdown-item fw-bold" href="#">Post</a></li>
                 <li><a class="dropdown-item fw-bold" href="/profile/{{user.id}}">Profile</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
+=======
+                <li><a class="dropdown-item fw-bold" href="/posts/create">Post</a></li>
+                <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
+                <li><a class="dropdown-item fw-bold" href="/">Logout</a></li>
+>>>>>>> a2a416d19aa8d55efae400d1032abc4c95209ae8
             </ul>
         </nav>
         <div class="container-fluid bgLightYellow" style="height: 1500px; width:inherit; padding-top: 10%;">
@@ -32,6 +38,7 @@
                     {%for post in posts%}
                         {{post.creator.first_name}} {{post.creator.last_name}}
                         {{post.content}}
+                        <a href="/posts/edit/{{ post.id }}">Edit</a>
                     {% endfor %}
                 </div>
                 <form action="/post/create/submit" method="post" class="post-form">
