@@ -11,3 +11,15 @@
 .txt{
     color: #d62828;
 }
+.txt2{
+    color: #eae2b7 ;
+}
+.myShadow {
+    box-shadow: 2px 2px 2px black;
+}
+.myShadow2 {
+    box-shadow: 2px 2px 5px #fcbf49;
+}
+.bgLightYellow {
+    background-color: #003049;
+}
