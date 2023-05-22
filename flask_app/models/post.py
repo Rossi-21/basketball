@@ -123,9 +123,24 @@ class Post:
 
     @classmethod
     def get_one_post(cls, data):
-        query = "SELECT * FROM posts WHERE posts.id = %(id)s;"
-        posts_from_db = connectToMySQL('sports_schema').query_db(query, data)
-        return cls(posts_from_db[0])
+        query = "SELECT posts.*, users.first_name, users.last_name FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = %(id)s;"
+        results = connectToMySQL('sports_schema').query_db(query, data)
+        
+        if results:
+            post_data = results[0]
+            post = cls(post_data)
+            post.creator = User({
+                "id": post_data['user_id'],
+                "first_name": post_data['first_name'],
+                "last_name": post_data['last_name'],
+                "email": "",
+                "password": "",
+                "created_at": post_data['created_at'],
+                "updated_at": post_data['updated_at']
+            })
+            return post
+        
+        return None
     
     @classmethod
     def update_post(cls,data):
