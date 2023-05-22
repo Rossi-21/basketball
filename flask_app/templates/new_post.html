@@ -22,7 +22,7 @@
             <ul class="dropdown-menu grade">
                 <li><a class="dropdown-item fw-bold" href="/dashboard">Dashboard</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
-                <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
+                <li><a class="dropdown-item fw-bold" href="/">Logout</a></li>
             </ul>
         </nav>
         <div class="container-fluid bgLightYellow" style="height: 1500px; width:inherit; padding-top: 10%;">
@@ -30,7 +30,7 @@
                 <div class="mx-auto mt-5 p-3" style="width: 50%;">
                     <div class="">
                         <h2 class="mb-3 txt2"> Post:</h2>
-                        <form action="#" method="post">
+                        <form action="/post/create/submit" method="POST">
                             {% with messages = get_flashed_messages() %}
                                 {% if messages %}
                                     {% for message in messages %}
@@ -39,10 +39,10 @@
                                 {% endif %}
                             {% endwith %} 
                             <div class="mb-3">
-                                <textarea class="form-control myShadow2" rows="5" type="text" name="description" ></textarea>
+                                <textarea class="form-control myShadow2" rows="5" type="text" name="content" ></textarea>
                             </div>
                             <div>
-                                <button class="btn grade rounded-0 border border-dark fw-bold myShadow" value="Create a Commet">Submit</button>
+                                <button class="btn grade rounded-0 border border-dark fw-bold myShadow" value="Create a Comment">Submit</button>
                             </div>
                         </form>
                     </div>

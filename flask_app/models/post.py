@@ -65,11 +65,34 @@ class Post:
         query = "INSERT INTO posts(content, created_at, updated_at, user_id) VALUES(%(content)s,NOW(),NOW(),%(user_id)s);"
         result = connectToMySQL('sports_schema').query_db(query,data)
         return result
+    
+    @classmethod
+    def get_post_by_id(cls,data):
+        query = "SELECT * FROM posts JOIN users On posts.user_id = users.id WHERE posts.id = %(id)s;"
+        results = connectToMySQL('sports_schema').query_db(query,data)
+        get_post_by_id = cls(results[0])
+        u= {
+            'id': results[0]['users.id'],
+            'first_name': results[0]['first_name'],
+            'last_name':  results[0]['last_name'],
+            'email': results[0]['email'],
+            'password': results[0]['password'],
+            'created_at': results[0]['users.created_at'],
+            'updated_at': results[0]['users.updated_at']
+        }
+        get_post_by_id.user = User(u)
+        return get_post_by_id
+    
+    @classmethod
+    def update_post(cls,data):
+        query = "UPDATE posts SET content=%(content)s, updated_at=NOW() WHERE id = %(id)s;"
+        result = connectToMySQL('sports_schema').query_db(query,data)
+        return result
 
     @staticmethod
     def validate_new_post(data):
         is_valid = True
         if len(data['content']) < 2:
-            flash("Content must be more than 2 characters.")
             is_valid = False
+            flash("Content must be more than 2 characters.")
         return is_valid

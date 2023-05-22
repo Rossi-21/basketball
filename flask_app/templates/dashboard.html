@@ -22,7 +22,7 @@
             <ul class="dropdown-menu grade">
                 <li><a class="dropdown-item fw-bold" href="/posts/create">Post</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
-                <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
+                <li><a class="dropdown-item fw-bold" href="/">Logout</a></li>
             </ul>
         </nav>
         <div class="container-fluid bgLightYellow" style="height: 1500px; width:inherit; padding-top: 10%;">
@@ -32,6 +32,7 @@
                     {%for post in posts%}
                         {{post.creator.first_name}} {{post.creator.last_name}}
                         {{post.content}}
+                        <a href="/posts/edit/{{ post.id }}">Edit</a>
                     {% endfor %}
                 </div>
             </div>
