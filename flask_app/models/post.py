@@ -65,6 +65,43 @@ class Post:
         query = "INSERT INTO posts(content, created_at, updated_at, user_id) VALUES(%(content)s,NOW(),NOW(),%(user_id)s);"
         result = connectToMySQL('sports_schema').query_db(query,data)
         return result
+    
+    @classmethod
+    def get_posts_by_user_id(cls, user_id):
+        query = """
+            SELECT posts.*, users.first_name AS creator_first_name, users.last_name AS creator_last_name
+            FROM posts
+            JOIN users ON posts.user_id = users.id
+            WHERE posts.user_id = %(user_id)s ORDER BY posts.created_at DESC;
+        """
+
+        data = {"user_id": user_id}
+        results = connectToMySQL('sports_schema').query_db(query, data)
+        posts = []
+
+        for result in results:
+            post = cls(result)
+            post.creator = User({
+                "id": result['user_id'],
+                "first_name": result['creator_first_name'],
+                "last_name": result['creator_last_name'],
+                "email": "",
+                "password": "",
+                "created_at": result['created_at'],
+                "updated_at": result['updated_at']
+            })
+
+
+            post.comments = Comment.get_comments_by_post_id(post.id)
+
+            posts.append(post)
+            for post in posts:
+                post.comments = Comment.get_comments_by_post_id(post.id)
+                print("Post Creator:", post.creator.first_name, post.creator.last_name)
+                for comment in post.comments:
+                    print("Comment User:", comment.user.first_name, comment.user.last_name)
+
+        return posts
 
     @staticmethod
     def validate_new_post(data):

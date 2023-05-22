@@ -21,7 +21,7 @@
             </button>
             <ul class="dropdown-menu grade">
                 <li><a class="dropdown-item fw-bold" href="#">Post</a></li>
-                <li><a class="dropdown-item fw-bold" href="#">Profile</a></li>
+                <li><a class="dropdown-item fw-bold" href="/profile/{{user.id}}">Profile</a></li>
                 <li><a class="dropdown-item fw-bold" href="#">Logout</a></li>
             </ul>
         </nav>
@@ -34,6 +34,14 @@
                         {{post.content}}
                     {% endfor %}
                 </div>
+                <form action="/post/create/submit" method="post" class="post-form">
+                    <h2 class="form-header">Tell us what you're reading!</h2>
+                    <div class="form-group">
+                        <label for="content">Thoughts:</label>
+                        <textarea id="content" name="content" rows="3" cols="30" placeholder="Let us know your thoughts!"></textarea>
+                    </div>
+                    <input type="submit" value="Add Post" class="btn btn-success">
+                </form>
             </div>
         </div>
     </div>   

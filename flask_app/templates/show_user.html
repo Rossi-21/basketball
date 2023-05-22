@@ -32,6 +32,10 @@
                     <div class="txt">
                         <p class="txt2">All Posts Assosciated with User</p>
                     </div>
+                    {%for post in posts%}
+                        {{post.creator.first_name}} {{post.creator.last_name}}
+                        {{post.content}}
+                    {% endfor %}
                 </div> 
             </div>
         </div>  
