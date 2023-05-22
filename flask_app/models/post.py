@@ -3,8 +3,9 @@ from flask import flash, session
 from flask_app.models.user import User
 from flask_app.models.comment import Comment
 
-class Post:
-    db = "sports_schema"
+db = "sports_schema"
+
+class Post:  
     def __init__(self, data):
         self.id = data['id']
         self.content = data['content']
