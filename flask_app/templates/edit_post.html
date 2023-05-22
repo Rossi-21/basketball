@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bgBlue">
     <div class="container-fluid">
         <nav class="grade p-2 mb-3 d-flex align-items-center justify-content-between fixed-top">
             <a href="/dashboard" class="fs-1 fw-bold text-decoration-none txt" style="width:85%;">InstaBall</a>
@@ -25,7 +25,7 @@
                 <li><a class="dropdown-item fw-bold" href="/logout">Logout</a></li>
             </ul>
         </nav>
-        <div class="container-fluid bgBlue" style="height: 1500px; width:inherit; padding-top: 10%;">
+        <div class="container-fluid" style="width:inherit; padding-top: 10%;">
             <div class="container-fluid" style="width:100%;">
                 <div class="mx-auto mt-5 p-3" style="width: 50%;">
                     <div class="">
@@ -41,8 +41,13 @@
                             <div class="mb-3">
                                 <textarea class="form-control myShadow2" rows="5" type="text" name="content" >{{post.content}}</textarea>
                             </div>
-                            <div>
-                                <button class="btn grade rounded-0 border border-dark fw-bold myShadow" value="Create a Commet">Update</button>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <button class="btn grade rounded-0 border border-dark fw-bold myShadow me-3" value="Update">Update</button>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn grade2 rounded-0 border border-dark fw-bold myShadow" value="Update">Delete</a>
+                                </div>
                             </div>
                         </form>
                     </div>
