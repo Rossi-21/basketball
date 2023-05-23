@@ -112,6 +112,7 @@ def show_post(id):
     }
 
     post = Post.get_one_post(data)
+    post.comments = Comment.get_comments_by_post_id(post.id)
 
     return render_template("show_post.html", user=user, post=post)
 
