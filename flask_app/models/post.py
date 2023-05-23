@@ -9,6 +9,7 @@ class Post:
     def __init__(self, data):
         self.id = data['id']
         self.content = data['content']
+        self.image_path = data['image_path']
         self.created_at = data['created_at']
         self.updated_at = data.get('updated_at', '')
         self.user_id = data.get('user_id', '')
@@ -63,7 +64,7 @@ class Post:
 
     @classmethod
     def save_post(cls, data):
-        query = "INSERT INTO posts(content, created_at, updated_at, user_id) VALUES(%(content)s,NOW(),NOW(),%(user_id)s);"
+        query = "INSERT INTO posts(content,image_path, created_at, updated_at, user_id) VALUES(%(content)s,%(image_path)s,NOW(),NOW(),%(user_id)s);"
         result = connectToMySQL('sports_schema').query_db(query,data)
         return result
     
@@ -103,7 +104,6 @@ class Post:
                     print("Comment User:", comment.user.first_name, comment.user.last_name)
 
         return posts
-
 
     @classmethod
     def get_post_by_id(cls,data):

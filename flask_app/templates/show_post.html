@@ -27,13 +27,51 @@
         </nav>
         <div class="container-fluid" style="width:inherit; padding-top: 10%;">
             <div class="container-fluid" style="width:100%;">
-                <div class="mx-auto mt-5 p-3 border rounded myShadow2" style="width: 50%;">
-                    
-                    <div class="txt">
-
-                            <p>{{post.creator.first_name}} {{post.creator.last_name}}:</p>
-                            <p class="txt2">{{post.content}}</p>
+                <div class="mx-auto mt-5 p-3 border rounded myShadow2" style="width: 40%;">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="txt fw-bold text-decoration-underline">{{post.creator.first_name}} {{post.creator.last_name}}</p>
+                        </div>
+                        <div  >
+                            {% if session['user_id'] == post.creator.id%}    
+                                <a href="/posts/edit/{{ post.id }}" class="txt2 text-decoration-none me-2">Edit</a>
+                            {%endif%}
+                            <a href="/show/post/{{post.id}}" class="txt2 text-decoration-none">View</a>
+                        </div>
                     </div>
+                    
+                    <!--Display Image-->
+                    <div class="d-flex justify-content-center mb-3">
+                        <img src="/get_image/{{post.id}}" class="img-fluid"  width="300" >
+                    </div>
+                    <div class="d-flex">
+                        <p class="txt3">
+                           <span class="fw-bold">{{post.creator.first_name}} {{post.creator.last_name}}:</span> 
+                            {{post.content}}
+                        </p>
+                    </div>
+                    <div>
+                        <form action="/comment/create/submit/{{post.id}}" method="post" class="new-comment">
+                            <div class="form-group">
+                                <label for="content" class="txt">Comment:</label>
+                                <textarea id="content" name="content" rows="3" cols="30" class="form-control myShadow2"></textarea>
+                            </div>
+                            <div>
+                                <input type="hidden" name="post_id" value="{{post.id}}">
+                                <input type="submit" value="Add-Comment" class="btn mt-3 mb-3 grade rounded-0 border border-dark fw-bold myShadow">
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="comment-section">
+                        {% for comment in post.comments %}
+                            <div class="d-flex txt3 mt-1">
+                                <p class="fw-bold me-2">{{ comment.user.first_name }} {{ comment.user.last_name }}:</p>
+                                <p> {{ comment.content }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
                         <p class="border-bottom txt2">Comments...</p>
                         <div>
                         <form action="/comment/create/submit/{{post.id}}" method="post" class="new-comment">
@@ -53,6 +91,7 @@
                                 </div>
                             {% endfor %}
                         </div>
+
                 </div> 
             </div>
         </div>  
