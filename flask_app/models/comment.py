@@ -1,5 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user import User
+from flask import render_template, request, flash, redirect, session
+from flask_app import app
 
 db = 'sports_schema'
 
@@ -13,16 +15,13 @@ class Comment:
         self.post_id = data['post_id']
         self.user = None
 
-    
-
-
     @classmethod
     def get_comments_by_post_id(cls, post_id):
         query = """
             SELECT comments.*, users.first_name AS comment_user_first_name, users.last_name AS comment_user_last_name
             FROM comments
             JOIN users ON comments.user_id = users.id
-            WHERE comments.post_id = %(post_id)s;
+            WHERE comments.post_id = %(post_id)s ORDER BY comments.created_at DESC;
         """
 
         data = {"post_id": post_id}
@@ -47,7 +46,9 @@ class Comment:
     @classmethod
     def create_comment(cls, data):
         query = """
-            INSERT INTO comments (content, user_id, post_id)
-            VALUES (%(content)s, %(user_id)s, %(post_id)s);
+            INSERT INTO comments (content, created_at, updated_at, user_id, post_id)
+            VALUES (%(content)s, NOW(), NOW(),%(user_id)s, %(post_id)s);
         """
         connectToMySQL('sports_schema').query_db(query, data)
+
+
