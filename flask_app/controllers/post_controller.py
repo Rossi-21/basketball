@@ -1,13 +1,19 @@
 import os
-from flask import render_template, request, flash, redirect, session, url_for, send_from_directory
+from flask import render_template, request, flash, redirect, session, make_response, send_from_directory, send_file
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.post import Post
 from flask_app.models.comment import Comment
 from werkzeug.utils import secure_filename
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpeg', 'gif'} 
+#Image Extensions We accept
+ALLOWED_EXTENSIONS = {'png', 'jpeg', 'jpg'} 
 
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#Home Page
 @app.route('/dashboard')
 def homepage():
     if 'user_id' not in session:
@@ -17,6 +23,7 @@ def homepage():
         return redirect('/logout')
     return render_template('dashboard.html', user=user, posts=Post.get_all_posts())
 
+#Create Post View
 @app.route('/posts/create')
 def create_post():
     if 'user_id' not in session:
@@ -26,27 +33,25 @@ def create_post():
         return redirect('/logout')
     return render_template('new_post.html', user=user, posts=Post.get_all_posts())
 
-def allowed_file(filename):
-    return '.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
+#Create Post Method Includes Image Upload
 @app.route('/post/create/submit', methods = ['POST'])
 def submit_post():
     if 'user_id' not in session:
         return redirect('/')
     
-    #file = request.files['file']
-    #if file.filename == '':
-        # flash('No selected file')
-        # return redirect(request.url)
-    #if file and allowed_file(file.filename):
-        #filename = secure_filename(file.filename)
-        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        #return redirect('/dashboard')
+    filename = "" #default
+
+    if 'image_path' in request.files:
+        file = request.files['image_path']
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.abspath(app.config['UPLOAD_FOLDER'] + filename))
     
     data = {
         'user_id': session['user_id'],
-        'content': request.form['content']
+        'content': request.form['content'],
+        'image_path': filename
     }
     if not Post.validate_new_post(data):
         return redirect('/posts/create')
@@ -57,6 +62,7 @@ def submit_post():
 def download_file(name):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
+#Update View
 @app.route('/posts/edit/<int:post_id>')
 def edit_post(post_id):
     if 'user_id' not in session:
@@ -69,6 +75,7 @@ def edit_post(post_id):
     }
     return render_template('edit_post.html', user=user, post=Post.get_post_by_id(data))
 
+#Update Method
 @app.route('/posts/edit/submit/<int:post_id>', methods = ['POST'])
 def submit_edit_post(post_id):
     if 'user_id' not in session:
@@ -82,6 +89,7 @@ def submit_edit_post(post_id):
     Post.update_post(data)
     return redirect('/dashboard')
 
+#User View
 @app.route('/profile/<int:id>')
 def user_posts(id):
     if 'user_id' not in session:
@@ -98,6 +106,7 @@ def user_posts(id):
 
     return render_template("show_user.html", user=user, posts=posts)
 
+#Post View
 @app.route('/show/post/<int:id>')
 def show_post(id):
     if 'user_id' not in session:
@@ -115,6 +124,16 @@ def show_post(id):
 
     return render_template("show_post.html", user=user, post=post)
 
+#Route that returns an image from the Folder
+@app.route('/get_image/<int:id>')
+def get_image(id):
+    post = Post.get_one_post({'id': id})
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], post.image_path)
+    response = make_response(send_file(image_path))
+    response.headers['Content-Type'] = 'image/jpeg'
+    return response
+
+#Delete Post Method
 @app.route('/delete/post/<int:post_id>')
 def destroy(post_id):
     data ={
