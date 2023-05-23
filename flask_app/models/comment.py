@@ -21,7 +21,7 @@ class Comment:
             SELECT comments.*, users.first_name AS comment_user_first_name, users.last_name AS comment_user_last_name
             FROM comments
             JOIN users ON comments.user_id = users.id
-            WHERE comments.post_id = %(post_id)s;
+            WHERE comments.post_id = %(post_id)s ORDER BY comments.created_at DESC;
         """
 
         data = {"post_id": post_id}
