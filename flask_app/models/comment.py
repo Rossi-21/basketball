@@ -43,3 +43,11 @@ class Comment:
             comments.append(comment)
 
         return comments
+
+    @classmethod
+    def create_comment(cls, data):
+        query = """
+            INSERT INTO comments (content, user_id, post_id)
+            VALUES (%(content)s, %(user_id)s, %(post_id)s);
+        """
+        connectToMySQL('sports_schema').query_db(query, data)
