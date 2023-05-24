@@ -63,6 +63,7 @@
                             
                         </form>
                     </div>
+                    <p class="border-bottom txt2">Comments...</p>
                     <div class="comment-section">
                         {% for comment in post.comments %}
                             <div class="d-flex txt3 mt-1">
@@ -71,27 +72,7 @@
                             </div>
                         {% endfor %}
                     </div>
-
-                        <p class="border-bottom txt2">Comments...</p>
-                        <div>
-                        <form action="/comment/create/submit/{{post.id}}" method="post" class="new-comment">
-                                <div class="form-group">
-                                    <label for="content">Comment:</label>
-                                    <textarea id="content" name="content" rows="3" cols="30"></textarea>
-                                </div>
-                                <input type="hidden" name="post_id" value="{{post.id}}">
-                                <input type="submit" value="Add-Comment" class="btn btn-success">
-                            </form>
-                        </div>
-                        <div class="comment-section">
-                            {% for comment in post.comments %}
-                                <div class="comment">
-                                    <p class="user-comment"><strong>{{ comment.user.first_name }} {{ comment.user.last_name }}: </strong>
-                                    <p class="comment-content"> {{ comment.content }}</p>
-                                </div>
-                            {% endfor %}
-                        </div>
-
+        
                 </div> 
             </div>
         </div>  

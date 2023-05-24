@@ -5,7 +5,8 @@ from flask_app.models.comment import Comment
 
 db = "sports_schema"
 
-class Post:  
+class Post:
+    db = "sports_schema"  
     def __init__(self, data):
         self.id = data['id']
         self.content = data['content']
@@ -150,10 +151,22 @@ class Post:
         return result
     
     @classmethod
-    def delete_post(cls,data):
-        query  = "DELETE FROM posts WHERE id = %(id)s;"
-        result = connectToMySQL('sports_schema').query_db(query,data)
-        return result
+    def delete_post(cls, post_id):
+        query_delete_comments = "DELETE FROM comments WHERE post_id = %(post_id)s;"
+        query_delete_post = "DELETE FROM posts WHERE id = %(post_id)s;"
+        data = {
+            'post_id': post_id
+        }
+
+        connectToMySQL('sports_schema').query_db(query_delete_comments, data)
+        connectToMySQL('sports_schema').query_db(query_delete_post, data)
+
+
+
+
+
+
+
 
     @staticmethod
     def validate_new_post(data):

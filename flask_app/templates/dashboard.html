@@ -37,6 +37,7 @@
                             <div  >
                                 {% if session['user_id'] == post.creator.id%}    
                                     <a href="/posts/edit/{{ post.id }}" class="txt2 text-decoration-none me-2">Edit</a>
+                                    <a class="txt2 text-decoration-none me-2" href="/delete/post/{{post.id}}">Delete</a>
                                 {%endif%}
                                 <a href="/show/post/{{post.id}}" class="txt2 text-decoration-none">View</a>
                             </div>

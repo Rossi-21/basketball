@@ -134,11 +134,10 @@ def get_image(id):
     response.headers['Content-Type'] = 'image/jpeg'
     return response
 
-#Delete Post Method
-@app.route('/delete/post/<int:post_id>')
-def destroy(post_id):
-    data ={
-        'id': post_id
+@app.route('/delete/post/<int:id>')
+def destroy(id):
+    data = {
+        'id': id
     }
-    Post.delete_post(data)
+    Post.delete_post(id)
     return redirect('/dashboard')
